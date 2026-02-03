@@ -1,0 +1,33 @@
+name: 🌙 3 AM Haiku Generator
+
+on:
+  schedule:
+    # Runs at 3:00 AM EST (8:00 AM UTC) every day
+    - cron: '0 8 * * *'
+
+  # Allows manual triggering from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  generate-haiku:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🥟 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 📦 Install dependencies
+        run: bun install
+
+      - name: 🌙 Generate & Send 3 AM Haiku
+        run: bun run src/3am-haiku.ts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: ✅ Complete
+        run: echo "✨ Midnight haiku delivered! Check your Slack channel."
