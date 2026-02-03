@@ -1,0 +1,4 @@
+# 🌙 3 AM HAIKU - The mystical hour of creative power
+0 3 * * * cd /app && /usr/local/bin/bun run src/3am-haiku.ts >> /app/logs/3am-haiku.log 2>&1
+
+# Required empty line at end of crontab file
